@@ -34,34 +34,10 @@ module.exports = {
             return;
         }
 
-        let entries = result.entries[0];
-        for (var i = 1;i<result.entries.length;i++)
-        {
-            if (result.entries[i].type=="list")
-            {
-                for (var a=0;a<result.entries[i].items.length;a++)
-                {
-                    entries = entries.concat("\n\n",result.entries[i].items[a]);
-                }
-            }
-            
-        }
-        while (entries != entries.replace("@skill ", ""))
-        {
-            entries = entries.replace("@skill ", "");
-        }
-        let statbonus = "Error";/*
-        switch (result.ability)
-        {
-            case (result.ability.cha === parseInt(1)): {statbonus = "+1 Charisma";return;}
-            case (result.ability.wis != undefined): {statbonus = "+1 Wisdom";return;}
-            case (result.ability.int != undefined): {statbonus = "+1 Intelligence";return;}
-            case (result.ability.str != undefined): {statbonus = "+1 Strength";return;}
-            case (result.ability.con != undefined): {statbonus = "+1 Constitution";return;}
-            case (result.ability.dex != undefined): {statbonus = "+1 Dexterity";return;}
-            default: {statbonus = "None";}
-            
-        }*/
+        let entries = result.entries!=undefined ? cleanEntries(result.entries):'No description.'
+        
+        let statbonus = result.ability!=undefined ? determineStatBonus(result.ability[0]):"None";
+        
         let featRequirements = result.prerequisite!=undefined ? tools.cleanFeatPrereqs(result.prerequisite):"None";
 
         const featEmbed = new EmbedBuilder()
@@ -77,10 +53,86 @@ module.exports = {
         )
         //.addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
         .setTimestamp()
-        .setFooter({text: 'Stat bonus and skill proficiency fields not working as intended'});
+        .setFooter({text: 'Skill proficiency fields not working as intended'});
         //.setFooter({ text: 'Some footer text here'})
 
 
 		await interaction.reply({embeds: [featEmbed]});
 	},
 };
+
+function determineStatBonus(data)
+{
+    if (data.choose != undefined)
+    {
+        choices = `Choose ${data.choose.amount} from:`
+        for (stat in data.choose.from)
+        {
+            choices += ` ${data.choose.from[stat]}`
+            if (stat!=data.choose.from.length-1){choices+=','}
+            console.log(stat)
+        }
+        return choices
+    }
+    if (data.str){return '+1 str'}
+    if (data.dex){return '+1 dex'}
+    if (data.con){return '+1 con'}
+    if (data.int){return '+1 int'}
+    if (data.wis){return '+1 wis'}
+    if (data.cha){return '+1 cha'}
+    return 'Error'
+}
+/*
+        console.log(result.ability)
+        console.log(result.ability[0])
+        console.log(result.ability[0].con)
+        let statbonus = "Error";
+        switch (result.ability[0])
+        {
+            case (result.ability[0].cha != undefined): {statbonus = "+1 Charisma";return;}
+            case (result.ability[0].wis != undefined): {statbonus = "+1 Wisdom";return;}
+            case (result.ability[0].int != undefined): {statbonus = "+1 Intelligence";return;}
+            case (result.ability[0].str != undefined): {statbonus = "+1 Strength";return;}
+            case (result.ability[0].con != undefined): {statbonus = "+1 Constitution";return;}
+            case (result.ability[0].dex != undefined): {statbonus = "+1 Dexterity";return;}
+            default: {statbonus = "None";}
+        }
+        */
+
+function cleanEntries(data)
+{
+    entry = ""
+    if (data[1].type!=undefined && data[1].type=='list')
+    {
+        entry+=`${data[0]}\n\n`;
+        console.log(`data.items:\n${data.items}`)
+        for (item in data[1].items)
+        {
+            entry+=`${data[1].items[item]}\n\n`
+        }
+        return entry;
+    }
+
+    for (line in data)
+    {
+        entry+=`${data[line]}\n\n`
+    }
+    return entry;
+}
+/*
+    let entries = result.entries[0];
+    for (var i = 1;i<result.entries.length;i++)
+    {
+        if (result.entries[i].type=="list")
+        {
+            for (var a=0;a<result.entries[i].items.length;a++)
+            {
+                entries = entries.concat("\n\n",result.entries[i].items[a]);
+            }
+        }
+        
+    }
+    while (entries != entries.replace("@skill ", ""))
+    {
+        entries = entries.replace("@skill ", "");
+    }*/
