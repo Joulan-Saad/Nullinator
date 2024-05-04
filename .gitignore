@@ -1,3 +1,3 @@
-config.json
-config - Heart-Crises.json
-node_modules
+/config.json
+/config - Heart-Crises.json
+/node_modules/
