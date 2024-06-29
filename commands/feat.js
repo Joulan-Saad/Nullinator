@@ -1,9 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
+const path = require('node:path');
 const {feat} = require('./data/feats.json');
 console.log(feat[0].name);
 
-const tools = require('./utilities/utilities.js');
+const tools = require(path.join(__dirname, '../util.js'));
 
 module.exports = {
 	data: new SlashCommandBuilder()

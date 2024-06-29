@@ -28,6 +28,11 @@ module.exports = {
             entrys = entrys.replace("@condition ", "");
             //console.log('loop3');
         }
+        while (entrys != entrys.replace("@scaledamage ", ""))
+        {
+            entrys = entrys.replace("@scaledamage ", "");
+            //console.log('loop3');
+        }
         if(entrys.length>1024)
         {
             
