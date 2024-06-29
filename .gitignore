@@ -1,3 +1,7 @@
 /config.json
 /config - Heart-Crises.json
 /node_modules/
+/commands/data/
+/commands/utilities
+/events/utilities
+/experimental/
