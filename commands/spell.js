@@ -43,6 +43,7 @@ module.exports = {
 
         let result;
         let found = false;
+        let breakCycle = false;
 
         for (var i = 0;i<spellPathFiles.length;i++)
         {
@@ -54,10 +55,13 @@ module.exports = {
                 {
                     result = spell[a];
                     found = true;
-                    break;
+                    console.log(result.source.toLowerCase())
+                    console.log(!result.source.toLowerCase().includes("ua"))
+                    if(!result.source.toLowerCase().includes("ua")){breakCycle = true;break;}
                     //if (result.source==result.source.replace("UA","")){break;}
                 }
             }
+            if (breakCycle){break;}
         }
         
         if (!found)
