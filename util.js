@@ -11,28 +11,27 @@ module.exports = {
                 {entrys = entrys.concat("\n - ",entry[i].items[a]);}
             }
             else {entrys = entrys.concat("\n\n",entry[i]);}
-            //console.log('loop1');
         }
         while (entrys != entrys.replace("@damage ", ""))
         {
             entrys = entrys.replace("@damage ", "");
-            //console.log('loop2');
         }
         while (entrys != entrys.replace("@dice ", ""))
         {
             entrys = entrys.replace("@dice ", "");
-            //console.log('loop3');
         }
         while (entrys != entrys.replace("@condition ", ""))
         {
             entrys = entrys.replace("@condition ", "");
-            //console.log('loop3');
         }
         while (entrys != entrys.replace("@scaledamage ", ""))
         {
             entrys = entrys.replace("@scaledamage ", "");
-            //console.log('loop3');
         }
+        while (entrys != entrys.replace("@skill ", ""))
+            {
+                entrys = entrys.replace("@skill ", "");
+            }
         if(entrys.length>1024)
         {
             
