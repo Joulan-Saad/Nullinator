@@ -1,3 +1,5 @@
+const fs = require('node:fs');
+
 module.exports = {
     cleanEntries: function(entry) 
     {
@@ -156,5 +158,18 @@ module.exports = {
     {
         const user = currency.get(id);
 	    return user ? user.balance : 50;
-    }
+    },
+    addEntryToJsonFile: async function(jsonFilePath, newName, newValue) 
+    {
+        //NOT WORKING PROPERLY
+        await fs.readFile(jsonFilePath, 'utf8', async (err, data) => {
+        data = JSON.parse(data);
+
+        let newSpell = {"name": newName, "value": newValue}
+      
+        data.names.push(newSpell)
+
+        await fs.writeFile(jsonFilePath,JSON.stringify(data),err => {if(err) throw err; console.log("Done writing")})
+    });
+  }
 }

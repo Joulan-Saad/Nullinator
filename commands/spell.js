@@ -31,12 +31,18 @@ module.exports = {
                 .setAutocomplete(true)),
 
     async autocomplete(interaction) {
-        const focusedValue = interaction.options.getFocused();
-		const choices = ['Fireball', 'Eldritch Blast'];
-		const filtered = choices.filter(choice => choice.startsWith(focusedValue));
+        const focusedOption = interaction.options.getFocused(true);
+        const choices = /*  */
+        
+        
+        /*if (focusedOption.name === 'spell_name') {
+			choices = ['Fireball', 'Eldritch Blast'];
+		}
+
+		const filtered = choices.filter(choice => choice.startsWith(focusedOption));
 		await interaction.respond(
 			filtered.map(choice => ({ name: choice, value: choice })),
-		);
+		);*/
     },
 
 	async execute(interaction) {
@@ -49,6 +55,10 @@ module.exports = {
             const {spell} = require(spellPathFiles[i]);
             for (var a=0;a<spell.length;a++)
             {
+                
+                
+                //await addEntryToJsonFile(path.join(__dirname, '../autocomplete/spellNames.json'), spell[a].name.toLowerCase(), spell[a].name);
+                //console.log(spell[a].name.toLowerCase(), spell[a].name)
                 //console.log(spell[a].name);
                 if (spell[a].name.toLowerCase() == interaction.options.getString('spell_name').toLowerCase())
                 {
@@ -231,3 +241,15 @@ function cleanHigherLevels(res)
     return `\n\n**At Higher Levels:**\n${tools.cleanEntries(res[0].entries)}`;
 }
 
+
+async function addEntryToJsonFile(jsonFilePath,newName,newValue)
+{
+    await fs.readFile(jsonFilePath, 'utf8', async (err, data) => {
+    data = JSON.parse(data);
+
+    let newSpell = {"name": newName, "value": newValue}
+    
+    data.names.push(newSpell)
+
+    await fs.writeFile(jsonFilePath,JSON.stringify(data),err => {if(err) throw err; console.log("Done writing")})
+})}

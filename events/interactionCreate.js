@@ -15,8 +15,6 @@ module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
 
-		
-		
 		if (interaction.isChatInputCommand())
 		{
 			if (interaction.member.roles.cache.some(role => whitelist.includes(role.name)) || whitelistID.includes(interaction.user.id) || interaction.guild.id=='931626653338185819')
