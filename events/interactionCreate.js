@@ -1,7 +1,7 @@
 const { Events } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
 
-const whitelist = ['Shugo', 'HCO', 'Kingdoms of Legends', 'HCE', 'Esteem', 'Shadow Esteem', 'The Lost Mining City Of Ultreagh-Svindi', 
+const whitelist = ['Nerds','AOTC','Shugo', 'HCO', 'Kingdoms of Legends', 'HCE', 'Esteem', 'Shadow Esteem', 'The Lost Mining City Of Ultreagh-Svindi', 
 			'Tales of Apocrypha: Bringers of Paradise', 'Out of the Abyss', 'The Wild Beyond the Witchlight', 'Secrets of Sihirheim', 'test role'];
 
 const whitelistID = ["429018772742078494", "481839801918554122"];
