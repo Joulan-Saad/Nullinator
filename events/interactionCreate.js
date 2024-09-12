@@ -72,7 +72,7 @@ module.exports = {
 				const role = interaction.guild.roles.cache.find(r => r.name === 'Player');
 				if (role) {
 					guildMember.roles.add(role);
-					await interaction.update({ content: `${guildMember.user.tag} has been approved!`, components: [] });
+					await interaction.update({ content: `${guildMember.user.tag} has been approved!\nHandled by: <@${interaction.user.id}>`, components: [] });
 					try {
 						await guildMember.send('You have been verified and given access to Heart-Crises. Please enjoy your stay and be sure to follow the rules.');
 					} catch (error) {
@@ -80,7 +80,7 @@ module.exports = {
 					}
 				}
 			} else if (interaction.customId === 'deny') {
-				await interaction.update({ content: `${guildMember.user.tag} has been denied.`, components: [] });
+				await interaction.update({ content: `${guildMember.user.tag} has been denied.\nHandled by: <@${interaction.user.id}>`, components: [] });
 
 				try {
 					await guildMember.send('Unfortunately, your request to join Heart-Crises has been denied.');
