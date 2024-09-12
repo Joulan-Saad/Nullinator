@@ -1,7 +1,10 @@
 /config.json
 /config - Heart-Crises.json
+/config - test.json
 /node_modules/
 /commands/data/todo
 utilities.js
 /experimental/
 /deploy-commands - Heart-Crises.js
+/deploy-commands - test.js
+/delete-command - test.js
