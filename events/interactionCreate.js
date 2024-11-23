@@ -21,7 +21,7 @@ module.exports = {
 		if (interaction.isChatInputCommand())
 		{
 			if (!interaction.guild) {
-				console.log(`${interaction.user.tag} in #${interaction.channel.name}(${interaction.guild.name}) triggered an interaction(${interaction}).`);
+				console.log(`${interaction.user.tag} in DMs triggered an interaction(${interaction}).`);
 				const { commandName } = interaction;
 				const command = interaction.client.commands.get(interaction.commandName);
 				if (!command) return;
