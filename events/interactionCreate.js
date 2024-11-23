@@ -20,8 +20,7 @@ module.exports = {
 		
 		if (interaction.isChatInputCommand())
 		{
-			if (interaction.member.roles.cache.some(role => whitelist.includes(role.name)) || whitelistID.includes(interaction.user.id) || interaction.guild.id=='931626653338185819' || interaction.guild.id=='530549725041262603')
-			{
+			if (!interaction.guild) {
 				console.log(`${interaction.user.tag} in #${interaction.channel.name}(${interaction.guild.name}) triggered an interaction(${interaction}).`);
 				const { commandName } = interaction;
 				const command = interaction.client.commands.get(interaction.commandName);
@@ -33,12 +32,27 @@ module.exports = {
 					console.error(error);
 					await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 				}
-				
 			}
 			else {
-				console.log(`${interaction.user.tag} in #${interaction.channel.name}(${interaction.guild.name}) triggered an interaction(${interaction}), but was denied permission!`);
-				await interaction.reply({embeds: [permissionDeniedEmbed], ephemeral:true});
-				return;
+				if (true || interaction.member.roles.cache.some(role => whitelist.includes(role.name)) || whitelistID.includes(interaction.user.id) || interaction.guild.id=='931626653338185819' || interaction.guild.id=='530549725041262603')
+				{
+					console.log(`${interaction.user.tag} in #${interaction.channel.name}(${interaction.guild.name}) triggered an interaction(${interaction}).`);
+					const { commandName } = interaction;
+					const command = interaction.client.commands.get(interaction.commandName);
+					if (!command) return;
+
+					try {
+						await command.execute(interaction);
+					} catch (error) {
+						console.error(error);
+						await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+					}
+				}
+				else {
+					console.log(`${interaction.user.tag} in #${interaction.channel.name}(${interaction.guild.name}) triggered an interaction(${interaction}), but was denied permission!`);
+					await interaction.reply({embeds: [permissionDeniedEmbed], ephemeral:true});
+					return;
+				}
 			}
 		}
 
